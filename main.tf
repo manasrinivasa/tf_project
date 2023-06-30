@@ -80,8 +80,22 @@ resource "aws_instance" "dev_node" {
     volume_size = 10
   }
 
+  connection {
+    type     = "ssh"
+    user     = "ubuntu"
+    private_key = file("~/.ssh/jellykey")
+    host     = self.public_ip
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "touch hello.txt"
+    ]
+
+  }
+
   tags = {
-    Name = "dev-node"
+    Name = "dev-node" 
   }
 }
 ## no role back, not good for configuring remote 
