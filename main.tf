@@ -64,8 +64,8 @@ resource "aws_security_group" "mtc_sg" {
 }
 
 resource "aws_key_pair" "mtc_auth" {
-  key_name   = "jellykey"
-  public_key = file("~/.ssh/jellykey.pub")
+  key_name   = "${var.deployment_name}-key"
+  public_key = file(var.public_key)
 }
 
 resource "aws_instance" "dev_node" {
@@ -83,7 +83,7 @@ resource "aws_instance" "dev_node" {
   connection {
     type     = "ssh"
     user     = "ubuntu"
-    private_key = file("~/.ssh/jellykey")
+    private_key = file(var.private_key)
     host     = self.public_ip
   }
 
@@ -95,7 +95,7 @@ resource "aws_instance" "dev_node" {
   }
 
   tags = {
-    Name = "dev-node" 
+    Name = "${var.deployment_name}-dev-node" 
   }
 }
 ## no role back, not good for configuring remote 
