@@ -1,2 +1,5 @@
-hello 
-make sure to choose your specific opertaing system when using the code.
+# Terraform Test Project
+
+## Usage
+1. Clone this repo to you local machine
+2. Copy `terraform.tfvars.example` to `terraform.tfvars` and fill in the values
