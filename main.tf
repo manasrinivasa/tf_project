@@ -94,10 +94,14 @@ resource "aws_instance" "dev_node" {
 
   }
 
-  tags = {
-    Name = "${var.deployment_name}-dev-node" 
-  }
+  tags = merge(
+    var.common_tags,
+    {
+      Name = "${var.deployment_name}-node"
+    }
+  )
 }
+
 ## no role back, not good for configuring remote 
 
 
