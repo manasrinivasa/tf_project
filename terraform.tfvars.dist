@@ -1,0 +1,14 @@
+# General Variables
+# Input an unique deployment name for your deployment
+deployment_name = "some_deployment_name"
+# Input the name of your AWS CLI profile to use
+aws_cli_profile = "default"
+# Input the path to your public and private keys below
+public_key = "/path/to/public_key.pem"
+private_key = "/path/to/private_key.pem"
+# input your region here 
+region = "some_region" 
+availability_zone = "some_availability_zone" 
+# input the cidr_block that you would like to use here 
+cidr_block = "cidr_block_number" 
+cidr_block_subnet = "cidr_block_subnet"

@@ -1,0 +1,16 @@
+## Below are the details about your environment. Please use the links and provided credentials to access.
+Servers:
+
+%{ for index, host in host_info ~}
+${host}
+%{ endfor ~}
+
+----------------------------------------
+VSCode Server Links:
+%{ for index, name in server_names ~}%{ if can(server_names) }
+https://code-${name}.${deployment_domain}%{ endif }%{ endfor ~}
+
+
+VSCode Server Password: ${code_server_password}
+
+----------------------------------------
