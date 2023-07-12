@@ -1,0 +1,5 @@
+- name: Deploy Docker container 
+  hosts: aws 
+  become: true 
+  roles: 
+    - docker 
