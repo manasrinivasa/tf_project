@@ -9,3 +9,6 @@ variable "availability_zone" {}
 variable "common_tags" {
   type = map(string)
 }
+variable "user" {
+  type = string
+}

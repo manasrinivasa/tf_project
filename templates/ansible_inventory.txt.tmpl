@@ -1,0 +1,8 @@
+[aws]
+%{ for index, name in aws_instance_name ~}%{ if can(aws_instance_name) }${aws_instance_name[index]} ansible_host=${aws_instance_ip[index]}
+%{ endif }%{ endfor ~}
+
+[all:vars]
+ansible_private_key_file=${private_key}
+ansible_user=${ansible_user} 
+
