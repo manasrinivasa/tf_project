@@ -1,2 +1,2 @@
-aws instance name: mztest0123-node
-aws instance ip: 54.167.120.13 
+aws instance name: mjtest123-node
+aws instance ip: 54.81.87.117 
