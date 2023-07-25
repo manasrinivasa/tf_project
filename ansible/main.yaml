@@ -1,0 +1,7 @@
+- name: all main yml roles 
+  hosts: all
+  gather_facts: yes 
+  become: true
+  roles:
+    - role: ubuntu 
+    - role: docker 

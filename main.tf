@@ -1,21 +1,21 @@
 resource "aws_vpc" "mtc_vpc" {
-  cidr_block           = "10.123.0.0/16"
+  cidr_block           = var.cidr_block
   enable_dns_hostnames = true
   enable_dns_support   = true
 
   tags = {
-    Name = "dev"
+    Name = "${var.deployment_name}-vpc"
   }
 }
 
 resource "aws_subnet" "mtc_public_subnet" {
   vpc_id                  = aws_vpc.mtc_vpc.id
-  cidr_block              = "10.123.1.0/24"
+  cidr_block              = var.cidr_block_subnet
   map_public_ip_on_launch = true
-  availability_zone       = "us-east-1a"
+  availability_zone       = var.availability_zone
 
   tags = {
-    Name = "dev-public"
+    Name = "${var.deployment_name}-public-subnet"
   }
 }
 
@@ -23,14 +23,14 @@ resource "aws_internet_gateway" "mtc_internet_gateway" {
   vpc_id = aws_vpc.mtc_vpc.id
 
   tags = {
-    Name = "dev-igw"
+    Name = "${var.deployment_name}-igw"
   }
 }
 
 resource "aws_route_table" "mtc_public_rt" {
   vpc_id = aws_vpc.mtc_vpc.id
   tags = {
-    Name = "dev-public-rt"
+    Name = "${var.deployment_name}-public-rt"
   }
 }
 
@@ -46,8 +46,8 @@ resource "aws_route_table_association" "mtc_public_subnet" {
 }
 
 resource "aws_security_group" "mtc_sg" {
-  name        = "dev_sg"
-  description = "dev security group"
+  name        = "${var.deployment_name}-sg"
+  description = "security group"
   vpc_id      = aws_vpc.mtc_vpc.id
   ingress {
     from_port   = 0
@@ -81,10 +81,10 @@ resource "aws_instance" "dev_node" {
   }
 
   connection {
-    type     = "ssh"
-    user     = "ubuntu"
+    type        = "ssh"
+    user        = "ubuntu"
     private_key = file(var.private_key)
-    host     = self.public_ip
+    host        = self.public_ip
   }
 
   provisioner "remote-exec" {
@@ -93,12 +93,12 @@ resource "aws_instance" "dev_node" {
     ]
 
   }
-
-  tags = {
-    Name = "${var.deployment_name}-dev-node" 
-  }
+  tags = merge(
+    var.common_tags,
+    {
+      Name = "${var.deployment_name}-node"
+    }
+  )
 }
-## no role back, not good for configuring remote 
-
 
 
