@@ -2,7 +2,15 @@
 %{ for index, name in aws_instance_name ~}%{ if can(aws_instance_name) }${aws_instance_name[index]} ansible_host=${aws_instance_ip[index]}
 %{ endif }%{ endfor ~}
 
+[hcloud] 
+${hcloud_server_name} ansible_host=${hcloud_server_ip} 
+
 [all:vars]
 ansible_private_key_file=${private_key}
 ansible_user=${ansible_user} 
+hcloud_private_key_file=${hcloud_private_key}
+hcloud_os_type= ${hcloud_os_type}
+
+
+
 

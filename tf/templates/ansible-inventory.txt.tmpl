@@ -1,0 +1,9 @@
+[aws]
+${aws_instance_name} ansible_host=${aws_instance_ip} 
+[hcloud] 
+${hcloud_server_name} ansible_host=${hcloud_server_ip} 
+[all:vars]
+ansible_private_key_file=${private_key}
+ansible_user=${ansible_user} 
+ansible_private_key_file=${hcloud_private_key}
+ansible_user= ${hcloud_os_type}
