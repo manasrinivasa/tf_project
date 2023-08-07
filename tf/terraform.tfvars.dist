@@ -12,3 +12,16 @@ availability_zone = "some_availability_zone"
 # input the cidr_block that you would like to use here 
 cidr_block = "cidr_block_number" 
 cidr_block_subnet = "cidr_block_subnet"
+# Hetzner (hcloud) variables
+#Set to "true" to enable HCloud. Set to "false" to disable HCloud.
+hcloud_enabled = "true"
+hcloud_token = "ur hcloud token"
+# hcloud_server_count = 1
+#Set your preferred region. Use the shortnames like "nbg1", "fsn1", or "hil1" found here: https://docs.hetzner.com/cloud/general/locations/
+#hcloud_location = "location type"
+# Do not change this
+#hcloud_server_type = "cpx51"
+#hcloud_os_type = "ubuntu-20.04"
+hcloud_public_key = "path to public key"
+hcloud_private_key = "path to private key"
+hcloud_os_type = "ubuntu-20.04"
