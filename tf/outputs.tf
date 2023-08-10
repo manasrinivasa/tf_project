@@ -16,7 +16,7 @@ resource "local_file" "ansible_inventory" {
     ansible_user = var.user,
     hcloud_server_name = hcloud_server.demo_server.labels.Name
     hcloud_server_ip = hcloud_server.demo_server.ipv4_address 
-    hcloud_private_key = var.hcloud_private_key
+    hcloud_private_key = var.private_key
     hcloud_os_type = var.hcloud_os_type
       }
     )
