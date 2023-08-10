@@ -1,2 +1,0 @@
-aws instance name: mztest0123-node
-aws instance ip: 54.87.187.31 

@@ -4,6 +4,11 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 4.0"
     }
+    hcloud = { 
+      source = "hetznercloud/hcloud"
+      version = "1.33.1"
+      
+    }
   }
 }
 provider "aws" {
@@ -12,3 +17,6 @@ provider "aws" {
   profile                  = var.aws_cli_profile
 }
 
+provider "hcloud" {
+  token   = var.hcloud_token
+}

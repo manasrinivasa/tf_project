@@ -68,31 +68,26 @@ resource "aws_key_pair" "mtc_auth" {
   public_key = file(var.public_key)
 }
 
+data "template_file" "aws_init" {
+  template = "${file("./userdata.tpl")}"
+  vars = {
+      user = var.user
+      ssh-pub = file(var.public_key)
+  }
+}
+
 resource "aws_instance" "dev_node" {
   instance_type          = "t2.micro"
   ami                    = data.aws_ami.ubuntu.id
   key_name               = aws_key_pair.mtc_auth.id
   vpc_security_group_ids = [aws_security_group.mtc_sg.id]
   subnet_id              = aws_subnet.mtc_public_subnet.id
-  user_data              = file("userdata.tpl")
+  user_data              = "${data.template_file.aws_init.rendered}"
 
   root_block_device {
     volume_size = 10
   }
-
-  connection {
-    type        = "ssh"
-    user        = "ubuntu"
-    private_key = file(var.private_key)
-    host        = self.public_ip
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "touch hello.txt"
-    ]
-
-  }
+  
   tags = merge(
     var.common_tags,
     {

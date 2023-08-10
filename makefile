@@ -24,15 +24,15 @@ help:
 
 terraform-deploy: ## Run the Terraform commands to deploy the virtual machine infrastructure.
 	@echo "$(COLOR_GREEN)\n--- Deploying infrastructure using Terraform.$(COLOR_END)"
-	@terraform init && terraform plan && terraform apply -auto-approve
+	@cd tf && terraform init && terraform plan && terraform apply -auto-approve
 
 terraform-teardown: ## Run the Terraform commands to destroy the K8s infrastructure. WARNING: Permanent deletion!
 	@echo "$(COLOR_GREEN)\n--- Tearing down infrastructure deployed by Terraform.$(COLOR_END)"
-	@terraform destroy -auto-approve 
+	@cd tf && terraform destroy -auto-approve 
 
 ansible-deploy: ## Run the Ansible playbook against the K8s infrastructure.
 	@echo "$(COLOR_GREEN)\n--- Running Ansible Playbook.$(COLOR_END)"
-	@cd ansible && ansible-playbook -i inventory.ini main.yaml
+	@cd tf && cd ansible && ansible-playbook -i inventory.ini main.yaml
 
 pause-buffer:
 	@echo "$(COLOR_GREEN)\n--- Waiting $(BUFFER_ITERATIONS)0s to allow the backend infrastructure to process any unfinished work.\nPlease wait.$(COLOR_END)"

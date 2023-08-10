@@ -1,0 +1,6 @@
+- name: Create a basic server 
+  hcloudserver: 
+    name: basic-server
+    server_type: cpx31
+    image: ubuntu-20.04
+    state: present 

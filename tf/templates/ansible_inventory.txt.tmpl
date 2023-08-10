@@ -1,8 +1,18 @@
-[aws]
+[aws_servers]
 %{ for index, name in aws_instance_name ~}%{ if can(aws_instance_name) }${aws_instance_name[index]} ansible_host=${aws_instance_ip[index]}
 %{ endif }%{ endfor ~}
 
-[all:vars]
+[hetzner_servers] 
+${hcloud_server_name} ansible_host=${hcloud_server_ip} 
+
+[aws_servers:vars]
 ansible_private_key_file=${private_key}
 ansible_user=${ansible_user} 
+
+[hetzner_servers:vars] 
+ansible_ssh_private_key_file=${hcloud_private_key}
+ansible_ssh_user = root 
+
+
+
 
