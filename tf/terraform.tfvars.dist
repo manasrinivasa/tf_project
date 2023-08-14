@@ -8,6 +8,8 @@ public_key = "/path/to/public_key.pub"
 private_key = "/path/to/private_key"
 
 # AWS Variables
+aws_access_key = "your_aws_access_key"
+aws_secret_key = "your_aws_secret_key"
 # Input the name of your AWS CLI profile to use
 aws_cli_profile = "default"
 # Input some common tags to be added to the resources
@@ -32,4 +34,4 @@ hcloud_token = "your-hcloud-token"
 hcloud_location = "location type"
 # Do not change this
 #hcloud_server_type = "cpx51"
-hcloud_os_type = "ubuntu-20.04"
+hcloud_os_type = "ubuntu-22.04"

@@ -1,2 +1,0 @@
-hcloud server name: mztes0789-server
-hcloud server ip: 5.161.71.121 
