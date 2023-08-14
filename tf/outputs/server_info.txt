@@ -1,0 +1,2 @@
+aws instance name: mztes0789-node
+aws instance ip: 44.204.23.145 

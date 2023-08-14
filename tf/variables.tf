@@ -7,7 +7,8 @@ variable "public_key" {}
 variable "private_key" {}
 
 # AWS variables
-variable "aws_cli_profile" {}
+variable "aws_secret_key" {}
+variable "aws_access_key" {}
 variable "region" {}
 variable "cidr_block" {}
 variable "cidr_block_subnet" {}

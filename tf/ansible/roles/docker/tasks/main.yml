@@ -1,3 +1,90 @@
+- name: Remove Docker Packages
+  apt:
+    name: "{{ item }}"
+    state: absent
+  loop:
+    - docker
+    - docker-engine
+    - docker.io
+    - containerd
+    - runc
+- name: Install aptitude
+  apt:
+    name: aptitude
+    state: latest
+    update_cache: true
+
+- name: Install required system packages
+  apt:
+    pkg:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - python3-pip
+      - virtualenv
+      - python3-setuptools
+    state: latest
+    update_cache: true
+
+- name: Run the equivalent of "apt-get update" as a separate step
+  ansible.builtin.apt:
+    upgrade: dist 
+    update_cache: yes
+    cache_valid_time: 3600
+    autoclean: yes 
+    autoremove: yes 
+    force_apt_get: yes 
+
+- name: Run apt-get install -f
+  become: true 
+  command: apt-get install -y 
+  ignore_errors: yes 
+
+- name: Add Docker GPG apt Key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+    
+- name: Add Docker Repository
+  apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu jammy stable
+    state: present
+
+- name: Update package lists
+  become: yes
+  apt:
+    update_cache: yes
+- name: Resolve dependencies and broken packages
+  become: yes
+  apt:
+    name: "*"
+    state: present 
+- name: Remove conflicting packages
+  become: yes
+  apt:
+    name: package_name_to_remove
+    state: absent
+- name: Clean package cache
+  become: yes
+  shell: apt-get clean
+
+- name: install docker and its dependencies
+  become: yes
+  apt:
+    pkg:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+    state: present 
+  ignore_errors: yes
+    
+- name: Install Docker Module for Python
+  pip:
+    name: docker
+
 - name: Pull Docker image
   docker_image:
     name: busybox

@@ -1,0 +1,15 @@
+- name: check updates for Ubuntu 
+  hosts: all 
+  become: yes 
+  tasks: 
+    - name: Run apt-get update 
+      shell: apt-get updates
+      register: update_success 
+    - name: Remove Updates not required 
+      apt: 
+        autoremove: yes 
+    - name: display results 
+      debug: 
+        msg: "The update {{ update_success.stdout }} has been successfully updated. "
+
+

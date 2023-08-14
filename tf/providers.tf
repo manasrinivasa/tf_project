@@ -1,5 +1,6 @@
 terraform {
   required_providers {
+
     aws = {
       source  = "hashicorp/aws"
       version = "~> 4.0"
@@ -7,14 +8,13 @@ terraform {
     hcloud = { 
       source = "hetznercloud/hcloud"
       version = "1.33.1"
-      
     }
   }
 }
 provider "aws" {
-  region                   = var.region
-  shared_credentials_files = ["~/.aws/credentials"]
-  profile                  = var.aws_cli_profile
+  region     = var.region
+  access_key = var.aws_access_key 
+  secret_key = var.aws_secret_key 
 }
 
 provider "hcloud" {

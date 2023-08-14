@@ -1,0 +1,56 @@
+- name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu jammy stable
+        state: present
+
+    - name: Update apt and install docker-ce
+      apt:
+        name: docker-ce
+        state: latest
+        update_cache: true
+
+    - name: Install Docker Module for Python
+      pip:
+        name: docker
+- name: Pull Docker image
+  docker_image:
+    name: busybox
+      source: pull
+
+- name: Run Docker container
+  docker_container:
+    name: test-container
+    image: busybox
+    state: started
+    ports:
+      - 8080     
+- name: Start a container with a command
+  community.docker.docker_container:
+    name: sleepy
+    image: ubuntu:14.04
+    command: ["sleep", "infinity"]
+- name: Start container with healthstatus
+  community.docker.docker_container:
+    name: nginx-proxy
+    image: nginx:1.13
+    state: started
+    healthcheck:
+# Check if nginx server is healthy by curl'ing the server.
+# If this fails or timeouts, the healthcheck fails.
+      test: ["CMD", "curl", "--fail", "http://nginx.host.com"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+- name: Start nginx container 
+  community.docker.docker_container:
+    name: nginx
+    image: nginx
+    state: started
+    ports:
+      - 80:80
